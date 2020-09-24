@@ -1,0 +1,28 @@
+  
+h1{
+    color: rebeccapurple;
+    font-size: 3em;
+    font-family: monospace;
+}
+
+h2{
+    color: gold;
+    font-size: 2em;
+    font-weight: 200;
+    font-family: monospace;
+}
+
+
+input{
+    border-radius: 5px;
+}
+
+.addNotification{
+    color: green;
+    background: snow;
+    font-size: 2em;
+    border-style: dotted;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 1em 5em;
+}
