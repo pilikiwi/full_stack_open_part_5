@@ -13,6 +13,7 @@ const App = () => {
   const [newUrl, setNewUrl] = useState('')
   const [user, setUser] = useState(null)
   const [addMessage, setAddMessage] = useState(null)
+  const [newNoteVisbile, setNewNoteVisible] = useState(false)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -113,14 +114,19 @@ const App = () => {
   const handleUrlChange = (event) => {
     setNewUrl(event.target.value)
   }
-  const blogForm = () => (
+
+  const hideWhenVisible = { display: newNoteVisbile ? 'none' : ''}
+  const showWhenVisible = { display: newNoteVisbile ? '' : 'none'}
+
+  const addBlogForm = () =>{ 
+    return (
     <form onSubmit={addBlog}>
     title: <input value={newTitle} onChange={handleTitleChange} /> <br />
     author: <input value={newAuthor} onChange={handleAuthoerChange} /> <br />
     url: <input value={newUrl} onChange={handleUrlChange} /> <br />
     <button type='submit'>Create</button>
     </form>
-  )
+  )}
 
   return (
     <div>
@@ -131,7 +137,13 @@ const App = () => {
         :<div> 
           <p>{user.name} logged in {logoutForm()}</p>
           <h2>Create New Blog:</h2>
-          {blogForm()}
+          <div style={hideWhenVisible}>
+            <button onClick={() => setNewNoteVisible(true)}>add new note</button>
+          </div>
+          <div style={showWhenVisible}>
+          {addBlogForm()}
+          <button onClick={() => setNewNoteVisible(false)}>cancel</button>
+          </div>
           <br />
           {blogs.map(blog =>
           <Blog key={blog.id} blog={blog} />
