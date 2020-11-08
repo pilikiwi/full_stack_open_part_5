@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Togglable from './Togglable'
 //import blogService from '../services/blogs'
 
 const blogStyle ={
@@ -11,11 +12,6 @@ const blogStyle ={
 
 const Blog = ({ blog }) => {
 
-  const [visible, setVisible] = useState(false)
-
-  const showDetail = { display: visible ? 'none' : '' }
-  const hideDetail = { display: visible ? '' : 'none' }
-
   /* step5.8 incomepeted 
   const like = async (event) => {
      event.preventDefault()
@@ -26,13 +22,11 @@ const Blog = ({ blog }) => {
   }
   */
   return (
-  <div style={blogStyle} >
-    <h4 className='blogShort'>{blog.title} by {blog.author}</h4> 
-    <div style={showDetail}> <button onClick={() => setVisible(true)}>view</button> </div>
-    <div style={hideDetail}>
-    <p >With Likes: {blog.likes} <button>Like</button> <br/>@ {blog.url}</p>
-    <button onClick={() => setVisible(false)}>hide</button>
-    </div>
+  <div style={blogStyle} className='blogFull'>
+    <h4>{blog.title} by {blog.author}</h4> 
+    <Togglable buttonLabel = 'view'>
+    <p>With Likes: {blog.likes} <button>Like</button> <br/>@ {blog.url}</p>
+    </Togglable>  
   </div>
 )}
 
