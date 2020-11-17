@@ -33,4 +33,29 @@ describe('login', function(){
             .and('have.css', 'color', 'rgb(0, 128, 0)')
         cy.get('html').should('not.contain', 'Learning Fullstack logged in') 
     })
+
+    describe('when logged in', function() {
+        beforeEach(function(){
+            cy.request('POST', 'http://localhost:3001/api/testing/reset')
+            const user = {
+                name: 'Learning Fullstack',
+                username: 'learner',
+                password: 'fullStack'
+            }
+            cy.request('POST', 'http://localhost:3001/api/users', user)
+    
+            cy.visit('http://localhost:3000/')
+            cy.get('#username').type('learner')
+            cy.get('#password').type('fullStack')
+            cy.get('#login-btn').click()
+        })
+        it('A blog can be created', function(){
+            cy.contains('add new note').click()
+            cy.get('#title').type('Cypress Test Title')
+            cy.get('#author').type('learner')
+            cy.get('#utl').type('www.testURL.com')
+            cy.get('#create-btn').click()
+            cy.contains('@ www.testURL.com')
+        })
+    })
 })
